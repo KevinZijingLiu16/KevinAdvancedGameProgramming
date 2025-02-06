@@ -9,7 +9,7 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "25a87084-df93-4853-99db-bca7ad949cd3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -64,6 +64,15 @@
                     "type": "Button",
                     "id": "e9006c2a-3369-4faf-8586-4a77c06bcb2d",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Block",
+                    "type": "Button",
+                    "id": "af44d761-a567-4e03-8231-a7ca404ec393",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -320,6 +329,28 @@
                     "processors": "",
                     "groups": "GamePad",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "76445cad-536e-4ef0-9446-6e19a1007220",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard & Mouse",
+                    "action": "Block",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "90ffe86a-81fe-447e-98a1-740af246e946",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";GamePad",
+                    "action": "Block",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

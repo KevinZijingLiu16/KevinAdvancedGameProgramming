@@ -12,6 +12,10 @@ public class Health : MonoBehaviour
 
     public event Action OnDie;
 
+    private bool isInvulnerable = false;
+
+    public bool IsDead => health == 0;
+
 
 
     // Start is called before the first frame update
@@ -20,10 +24,20 @@ public class Health : MonoBehaviour
         health = maxHealth; 
     }
 
+    public void SetInvulnerable(bool isInvulnerable)
+    {
+        this.isInvulnerable = isInvulnerable;
+    }
+
     public void DealDamage(int damage)
     {
         
         if (health == 0)
+        {
+            return;
+        }
+
+        if (isInvulnerable)
         {
             return;
         }

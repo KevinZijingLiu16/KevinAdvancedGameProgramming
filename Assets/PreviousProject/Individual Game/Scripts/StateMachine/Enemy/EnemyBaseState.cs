@@ -23,6 +23,8 @@ public abstract class EnemyBaseState : State
 
     protected bool IsInChaseRange() // Checks if the player is in the chase range
     {
+        if(stateMachine.Player.IsDead) { return false; } // If the player is dead, return false
+
         float playerDistanceSqr = (stateMachine.Player.transform.position - stateMachine.transform.position).sqrMagnitude;
         return playerDistanceSqr <= stateMachine.PlayerChasingRange * stateMachine.PlayerChasingRange; // Returns true if the player is in the chase range
     }
