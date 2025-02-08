@@ -4632,6 +4632,11 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!195 &998457450 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: 3651363546744475011, guid: 7d57caf61ab82f348b950da815f10316, type: 3}
+  m_PrefabInstance: {fileID: 7358776202289819621}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &998465307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8924,6 +8929,10 @@ PrefabInstance:
       propertyPath: m_StreamingVersion
       value: 20241001
       objectReference: {fileID: 0}
+    - target: {fileID: 1315570262077042131, guid: 7f25c0cc2ce54114cbf4d9e9e4080fbc, type: 3}
+      propertyPath: agent
+      value: 
+      objectReference: {fileID: 998457450}
     - target: {fileID: 2312899738381632534, guid: 7f25c0cc2ce54114cbf4d9e9e4080fbc, type: 3}
       propertyPath: m_XDamping
       value: 0

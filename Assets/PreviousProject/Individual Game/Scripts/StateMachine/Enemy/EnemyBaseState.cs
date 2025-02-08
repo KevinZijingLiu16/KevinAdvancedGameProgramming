@@ -21,13 +21,32 @@ public abstract class EnemyBaseState : State
         stateMachine.Controller.Move((motion + stateMachine.ForceReceiver.Movement) * deltaTime);
     }
 
-    protected bool IsInChaseRange() // Checks if the player is in the chase range
+    protected bool IsInChaseRange()
     {
-        if(stateMachine.Player.IsDead) { return false; } // If the player is dead, return false
+        if (stateMachine.Player == null)
+        {
+            Debug.LogError("EnemyBaseState: Player reference is NULL!");
+            return false;
+        }
+
+        if (stateMachine.Player.IsDead)
+        {
+            Debug.Log("EnemyBaseState: Player is dead. Not chasing.");
+            return false;
+        }
+
+        if (stateMachine == null)
+        {
+            Debug.LogError("EnemyBaseState: StateMachine reference is NULL!");
+            return false;
+        }
 
         float playerDistanceSqr = (stateMachine.Player.transform.position - stateMachine.transform.position).sqrMagnitude;
-        return playerDistanceSqr <= stateMachine.PlayerChasingRange * stateMachine.PlayerChasingRange; // Returns true if the player is in the chase range
+       // Debug.Log($"EnemyBaseState: Distance to player = {playerDistanceSqr}, Chasing Range = {stateMachine.PlayerChasingRange * stateMachine.PlayerChasingRange}");
+
+        return playerDistanceSqr <= stateMachine.PlayerChasingRange * stateMachine.PlayerChasingRange;
     }
+
 
     protected void FaceToPlayer() // Makes the enemy face the player
     {
