@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class PlayerScoreDisplay : MonoBehaviour
+public class PlayerTotalScoreDisplay : MonoBehaviour
 {
     private PlayerScorePanel scorePanel;
     private PlayerScoreCalculator scoreCalculator;
