@@ -5,10 +5,10 @@ public class Player : MonoBehaviour
 {
     public int PlayerIndex { get; private set; }
 
-    public CharacterMovement Movement => _movement;
+    public InventoryMoveTest Movement => _movement;
 
     [SerializeField] private GameObject _cinemachineRoot;
-    [SerializeField] private CharacterMovement _movement;
+    [SerializeField] private InventoryMoveTest _movement;
 
     public void Initialize(int playerIndex)
     {

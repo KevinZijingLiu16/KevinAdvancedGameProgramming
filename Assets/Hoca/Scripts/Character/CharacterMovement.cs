@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(CharacterControls))]
 [RequireComponent(typeof(CharacterController))]
-public class CharacterMovement : MonoBehaviour
+public class InventoryMoveTest : MonoBehaviour
 {
     [SerializeField] private float _steerSpeed = 270;
     [SerializeField] private float _steerQuickness = 2;
