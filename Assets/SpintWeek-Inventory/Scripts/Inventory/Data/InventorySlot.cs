@@ -24,7 +24,7 @@ namespace Inventory.Model
         {
             ItemStack = stack;
         }
-        // Function to remove the content of the slot like removing or dropping
+        // Function to remove the content of the slot like removing or dropping, when the slot has no item.
         public void Clear()
         {
             ItemStack = null;

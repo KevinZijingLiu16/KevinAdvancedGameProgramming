@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 namespace Inventory.UI
 {
@@ -12,39 +13,30 @@ namespace Inventory.UI
 
         private RectTransform _rectTransform;
 
-
         private void Start()
         {
             _rectTransform = GetComponent<RectTransform>();
-
+            //just a double check to see to get the canvas reference
             if (canvasReference == null)
             {
                 canvasReference = GetComponentInParent<Canvas>();
             }
 
             Debug.Log("Canvas RenderMode: " + canvasReference.renderMode);
-            Debug.Log("Canvas worldCamera: " + canvasReference.worldCamera);
+           // Debug.Log("Canvas worldCamera: " + canvasReference.worldCamera);
 
             Hide();
         }
-
-
+        /// This function will be called in the InventoryUISlot when the player starts dragging an item
         public void Show(Sprite icon, int amount)
         {
-            if (canvasReference == null)
-            {
-                canvasReference = GetComponentInParent<Canvas>();
-                Debug.LogWarning("CanvasReference was null, re-assigned at runtime.");
-            }
-
             iconImage.sprite = icon;
-            quantityText.text = amount > 1 ? amount.ToString() : "";
+            //if the amount is 0 or less, set the text to empty
+            quantityText.text = amount >= 1 ? amount.ToString() : "";
             gameObject.SetActive(true);
             UpdatePosition();
         }
-
-
-
+        // this method will be called every time the player drags the item and change the dragged icon position.
         public void UpdatePosition()
         {
 
@@ -53,6 +45,8 @@ namespace Inventory.UI
                 Debug.LogWarning("Canvas reference is null. Can't update drag icon position.");
                 return;
             }
+            //if the canvas is in screen space overlay, set the camera to null
+            //if the canvas is in screen space camera, set the camera to the worldCamera of the canvas
             Camera camera = canvasReference.renderMode == RenderMode.ScreenSpaceOverlay
      ? null
      : canvasReference.worldCamera;
@@ -69,6 +63,9 @@ namespace Inventory.UI
         }
 
 
+        
+        // this function will be called at the beginning of the drag and drop process.
+        // and will will be called in the InventoryUISlot when the player stops dragging an item
         public void Hide()
         {
             gameObject.SetActive(false);

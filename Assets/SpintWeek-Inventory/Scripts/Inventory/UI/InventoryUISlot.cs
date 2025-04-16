@@ -9,7 +9,7 @@ using Inventory.Model;
 
 namespace Inventory.UI
 {
-    public class InventoryUISlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
+    public class InventoryUISlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
     {
        
         [SerializeField] private Image iconImage; 
@@ -21,6 +21,7 @@ namespace Inventory.UI
         private InventorySlot _logicSlot;
         private InventoryUIController _uiController;
 
+        //By making DraggedSlot static, to ensure that there is a single, globally accessible reference to the currently dragged slot. Because static field belongs to the class itself rather than any particular instance. And make it to be the only one reference at the same time. This simplifies the logic for handling drag-and-drop operations and ensures that the system can always determine which slot is being dragged, regardless of which instance of InventoryUISlot is currently being interacted with.
 
         public static InventoryUISlot DraggedSlot { get; private set; } // Static reference to store the dragged slot
 
@@ -47,6 +48,20 @@ namespace Inventory.UI
             iconImage.color = new Color(1, 1, 1, 0.3f);
             quantityText.text = "";
             _itemData = null;
+        }
+        public void SetSlot(InventorySlot logicSlot)
+        {
+            _logicSlot = logicSlot;
+        }
+        public void SetUIController(InventoryUIController controller)
+        {
+            _uiController = controller;
+        }
+
+
+        public void SetDragIcon(UIDragIcon icon)
+        {
+            _dragIcon = icon;
         }
         // GetIndex will be called in the InventoryUIController when the player wants to remove an item from the inventory or drag and drop
         public int GetIndex()
@@ -76,7 +91,7 @@ namespace Inventory.UI
 
             var itemData = _logicSlot.ItemStack.ItemData;
             int quantity = _logicSlot.ItemStack.Quantity;
-
+            //pass the item data like icon image and the quantity to the drag icon 
             _dragIcon.Show(itemData.icon, quantity);
         }
 
@@ -87,32 +102,43 @@ namespace Inventory.UI
         }
         public void OnEndDrag(PointerEventData eventData)
         {
-            DraggedSlot = null; // Clear the dragged slot reference
-           
+            //clear the static reference to the dragged slot, indicating that the drag operation has ended
+            DraggedSlot = null;
             _dragIcon.Hide();
-
-            if (eventData.pointerEnter == null)
-                return;
-
-            var targetSlot = eventData.pointerEnter.GetComponentInParent<InventoryUISlot>();
-
-            if (targetSlot == null || targetSlot == this)
-                return;
-
-            _uiController.SwapItems(GetIndex(), targetSlot.GetIndex());
-
+            //get the gameobject that the pointer is currently over
+            var pointerTarget = eventData.pointerEnter;
+            //try to get the InventoryUISlot component from the pointer target
+            //InventoryUISlot targetSlot = null;
+            //if (pointerTarget != null)
+            //{
+            //    targetSlot = pointerTarget.GetComponentInParent<InventoryUISlot>();
+            //}
+            //else
+            //{
+            //    targetSlot = null;
+            //}  To Make it shorthand: code below
+            var targetSlot = pointerTarget != null ? pointerTarget.GetComponentInParent<InventoryUISlot>() : null;
+            //check if the target slot is valid and not the same as the current slot
+            if (targetSlot != null && targetSlot != this)
+            {
+                //swap the items between the two slots
+                _uiController.SwapItems(GetIndex(), targetSlot.GetIndex());
+            }
+            else
+            {
+                //if not a valid target slot, drop the item into the world
+                _uiController.DropItemIntoWorld(_index);
+            }
         }
 
-        public void SetUIController(InventoryUIController controller)
+        public void OnPointerClick(PointerEventData eventData)
         {
-            _uiController = controller;
+            if (eventData.button == PointerEventData.InputButton.Right && _logicSlot != null && !_logicSlot.IsEmpty)
+            {
+                _uiController.TrySplitStack(_index);
+            }
         }
-
-
-        public void SetDragIcon(UIDragIcon icon)
-        {
-            _dragIcon = icon;
-        }
+       
 
 
     }

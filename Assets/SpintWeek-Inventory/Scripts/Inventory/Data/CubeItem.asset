@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9fbe4265a0b71745a91a71ed2219472, type: 3}
-  m_Name: SphereItem
+  m_Name: CubeItem
   m_EditorClassIdentifier: 
-  itemName: Sphere
-  icon: {fileID: 21300000, guid: 4ba2a3fb99b084a4f8c177ad47862fd6, type: 3}
+  itemName: Cube
+  icon: {fileID: 21300000, guid: 6ac791c7951afb04cb249a9777c62315, type: 3}
   maxStackSize: 5
-  worldPrefab: {fileID: 5971000322638068144, guid: c2486c74b55039c4592b325308623487, type: 3}
-  description: This is a Sphere
+  worldPrefab: {fileID: 7338333175530512912, guid: 1744814fb14dcea439f52aa95dec0070, type: 3}
+  description: This is a Cube
